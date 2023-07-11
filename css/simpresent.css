@@ -1,0 +1,22 @@
+section {
+	display: none;
+}
+
+.note {
+	display: none;
+}
+
+body::-webkit-scrollbar{
+    display: none;
+}
+
+#defaultOverlay,#overlay {
+	position: absolute;
+	width: 100%;
+	z-index: -1;
+	height: 100vh;
+}
+
+#defaultOverlay,#overlay > * {
+	position: absolute;
+}

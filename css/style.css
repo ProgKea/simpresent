@@ -1,0 +1,66 @@
+body {
+    text-align: center;
+    font-family: "Merriweather";
+    color: #e4e4ef;
+    background-color: #181818;
+    margin: auto;
+    font-size: 2em;
+}
+
+/* h1, h2, h3, h4, h5, h6 { */
+/* } */
+
+h1 {
+    color: #ffdd33;
+}
+
+h2 {
+    color: #9e95c7;
+}
+
+h3 {
+    color: #96a6c8;
+}
+
+#index {
+    left: 100%;
+    top: 100%;
+    transform: translate(-100%, -100%);
+}
+
+#kroschuLogoTL {
+    width: 350px;
+    left: 100%;
+    transform: translateX(-100%);
+    padding-top: 20px;
+    padding-right: 20px;
+}
+
+#titleSlideContent {
+    display: flex;
+    flex-direction: row;
+}
+
+section {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#kroschuLogoC {
+    width: 500px;
+}
+
+.titleHeader {
+    color: #ffffff;
+}
+
+.index0 {
+    display: none;
+}
+
+#boi {
+    position: absolute;
+    width: 100%;
+}

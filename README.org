@@ -1,0 +1,5 @@
+* simpresent
+
+simpresent is a really simple presentation framework that enables you to create your presentation using html, css, js.
+
+I created simpresent because I didn't want to use powerpoint. I did not wan't to use something like marp either, because I felt like I had less control, when using it.
