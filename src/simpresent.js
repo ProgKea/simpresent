@@ -1,99 +1,175 @@
-function switchSlides(slides, idx, newIdx) {
-    slides[idx].style.display = "none";
-    slides[newIdx].style.display = "block";
-    return newIdx;
+class SubSection extends HTMLElement {
+    constructor() {
+        super();
+    }
 }
 
-function nextSlide(slides, idx) {
-    const newIdx = Math.min(slides.length-1, idx+1);
-    switchSlides(slides, idx, newIdx);
-    return newIdx;
+class Slide {
+    constructor(element) {
+        this.element = element;
+        this.currentSubslide = 0;
+        this.subslides = [];
+    }
+
+    subslide() {
+        return this.subslides[this.currentSubslide];
+    }
+
+    updateSubslides() {
+        if (this.subslides.length <= 0) {
+            this.subslides = this.element.querySelectorAll("sub-section");
+        }
+    }
 }
 
-function prevSlide(slides, idx) {
-    const newIdx = Math.max(0, idx-1);
-    switchSlides(slides, idx, newIdx);
-    return newIdx;
-}
+class Simpresent {
+    constructor() {
+        this.idx = 0;
+        const sections = document.querySelectorAll("section");
 
-function getNote(notes, slide, idx) {
-    if (notes[idx] === undefined) {
-        const noteElement = slide.querySelector(".note");
-        if (noteElement === null) {
+        if (sections.length <= 0) {
+            throw new Error("There are no slides in this presentation");
+        }
+
+        for (let i = 0; i < sections.length; ++i) {
+            sections[i].id = "slide" + i;
+        }
+        this.slides = sections2Slides(sections);
+
+        customElements.define("sub-section", SubSection);
+
+        this.indexElement = document.getElementById("index");
+        this.overlay = document.getElementById("overlay");
+        this.overlay.className = "index0";
+        if (this.indexElement !== null) {
+            this.indexElement.textContent = "0";
+        }
+
+        this.slides[0].element.style.display = "block";
+        this.notes = new Array(this.slides.length);
+    }
+
+    currentSlide() {
+        return this.slides[this.idx];
+    }
+
+    currentNote() {
+        return this.notes[this.idx];
+    }
+
+    switchSlides(newIdx) {
+        this.currentSlide().element.style.display = "none";
+        this.slides[newIdx].element.style.display = "block";
+        this.idx = newIdx;
+    }
+
+    prevSlide() {
+        const newIdx = Math.max(0, this.idx-1);
+        this.switchSlides(newIdx);
+        this.idx = newIdx;
+    }
+
+    nextSlide() {
+        const newIdx = Math.min(this.slides.length-1, this.idx+1);
+        this.switchSlides(newIdx);
+        this.idx = newIdx;
+    }
+
+    prevSubslide() {
+        if (this.currentSlide().subslide() === undefined) {
             return;
         }
-        const note = noteElement.textContent;
-        notes[idx] = note;
-        return note;
+
+        this.currentSlide().subslide().style.display = "none";
+        this.currentSlide().currentSubslide = Math.max(0, this.currentSlide().currentSubslide-1);
     }
 
-    return notes[idx];
+    nextSubslide() {
+        if (this.currentSlide().subslide() === undefined) {
+            return;
+        }
+
+        this.currentSlide().subslide().style.display = "block";
+        this.currentSlide().currentSubslide =
+            Math.min(this.currentSlide().subslides.length-1,
+                     this.currentSlide().currentSubslide+1);
+    }
+
+    update() {
+        this.overlay.className = `index${this.idx}`;
+        if (this.indexElement !== null) {
+            this.indexElement.textContent = `${this.idx}`;
+        }
+    }
+
+    logNote() {
+        let note = undefined;
+        if (this.currentNote() === undefined) {
+            const noteElement = this.currentSlide().element.querySelector(".note");
+            if (noteElement === null) {
+                return;
+            }
+            note = noteElement.textContent;
+            this.notes[this.idx] = note;
+        }
+
+        if (note !== undefined) {
+            console.log(note);
+        }
+    }
 }
 
-function logNote(notes, slide, idx) {
-    const note = getNote(notes, slide, idx);
-    if (note !== undefined) {
-        console.log(note);
+function sections2Slides(sections) {
+    let slides = [];
+    for (let i = 0; i < sections.length; ++i) {
+        slides.push(new Slide(sections[i]));
     }
+    return slides;
 }
 
 window.onload = () => {
-    const slides = document.querySelectorAll("section");
-
-    if (slides.length <= 0) {
-        throw new Error("There are no slides in this presentation");
-    }
-
-    const indexElement = document.getElementById("index");
-    const overlay = document.getElementById("overlay");
-
-    overlay.className = "index0";
-    slides[0].style.display = "block";
-    notes = new Array(slides.length);
-    logNote(notes, slides[0], 0);
-    if (indexElement !== null) {
-        indexElement.textContent = "0";
-    }
-
-    let idx = 0;
+    const simpresent = new Simpresent();
     document.addEventListener("keydown", (e) => {
         switch (e.key) {
         case "ArrowLeft":
+        case "h":
+            simpresent.prevSubslide();
+            break;
+        case "ArrowRight":
+        case "l":
+            simpresent.nextSubslide();
+            break;
         case "PageUp":
         case "k":
             e.preventDefault();
-            idx = prevSlide(slides, idx);
+            simpresent.prevSlide();
             break;
-        case "ArrowRight":
         case "PageDown":
         case "j":
             e.preventDefault();
-            idx = nextSlide(slides, idx);
+            simpresent.nextSlide();
             break;
         case "Home":
         case "u":
         case "g":
             e.preventDefault();
-            idx = switchSlides(slides, idx, 0);
+            simpresent.switchSlides(0);
             break;
         case "End":
         case "d":
         case "G":
             e.preventDefault();
-            idx = switchSlides(slides, idx, slides.length-1);
+            simpresent.switchSlides(simpresent.slides.length-1);
             break;
         case " ":
             e.preventDefault();
-            idx = switchSlides(slides, idx, idx);
             break;
         }
 
-        overlay.className = `index${idx}`;
-        logNote(notes, slides[idx], idx);
-        if (indexElement !== null) {
-            indexElement.textContent = `${idx}`;
-        }
+        simpresent.currentSlide().updateSubslides();
+        simpresent.update()
     });
 }
 
 // TODO: Find another way to show the notes. One option would be to create a api that accepts the notes and shows them
+// TODO: fix the bug that you have to press twice to switch direction, when switching subsections

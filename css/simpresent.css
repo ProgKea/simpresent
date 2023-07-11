@@ -1,9 +1,13 @@
 section {
-	display: none;
+    display: none;
+}
+
+sub-section {
+    display: none;
 }
 
 .note {
-	display: none;
+    display: none;
 }
 
 body::-webkit-scrollbar{
@@ -11,12 +15,12 @@ body::-webkit-scrollbar{
 }
 
 #defaultOverlay,#overlay {
-	position: absolute;
-	width: 100%;
-	z-index: -1;
-	height: 100vh;
+    position: absolute;
+    width: 100%;
+    z-index: -1;
+    height: 100vh;
 }
 
 #defaultOverlay,#overlay > * {
-	position: absolute;
+    position: absolute;
 }

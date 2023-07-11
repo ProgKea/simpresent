@@ -28,19 +28,6 @@ h3 {
     transform: translate(-100%, -100%);
 }
 
-#kroschuLogoTL {
-    width: 350px;
-    left: 100%;
-    transform: translateX(-100%);
-    padding-top: 20px;
-    padding-right: 20px;
-}
-
-#titleSlideContent {
-    display: flex;
-    flex-direction: row;
-}
-
 section {
     position: absolute;
     top: 50%;
@@ -48,19 +35,16 @@ section {
     transform: translate(-50%, -50%);
 }
 
-#kroschuLogoC {
-    width: 500px;
-}
-
 .titleHeader {
     color: #ffffff;
 }
 
-.index0 {
-    display: none;
+.topLeft {
+    position: absolute;
+    padding: 20px;
 }
 
-#boi {
-    position: absolute;
-    width: 100%;
+#slide2 {
+    position: relative;
+    text-align: left;
 }
