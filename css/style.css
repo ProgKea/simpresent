@@ -1,14 +1,16 @@
+@font-face {
+    font-family: 'Merriweather';
+    src: url('../fonts/Merriweather-Regular.ttf') format('truetype');
+}
+
 body {
     text-align: center;
-    font-family: "Merriweather";
+    font-family: 'Merriweather';
     color: #e4e4ef;
     background-color: #181818;
     margin: auto;
-    font-size: 2em;
+    font-size: 1.5em;
 }
-
-/* h1, h2, h3, h4, h5, h6 { */
-/* } */
 
 h1 {
     color: #ffdd33;
@@ -19,7 +21,7 @@ h2 {
 }
 
 h3 {
-    color: #96a6c8;
+    color: #ffffff;
 }
 
 #index {
@@ -35,6 +37,10 @@ section {
     transform: translate(-50%, -50%);
 }
 
+code {
+    font-family: 'Consolas';
+}
+
 .titleHeader {
     color: #ffffff;
 }
@@ -44,7 +50,68 @@ section {
     padding: 20px;
 }
 
-#slide2 {
+.index0 {
+    display: none;
+}
+
+#slide2, #slide3, #slide4 {
     position: relative;
     text-align: left;
+}
+
+#slide3 > * {
+    position: absolute;
+}
+
+.rowList {
+    padding-top: 20vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.rowList > h3 {
+    margin: 0px;
+}
+
+.colList {
+    display: flex;
+}
+
+.textCenter {
+    text-align: center;
+}
+
+.bigFont {
+    font-size: 2em;
+}
+
+.noMargin {
+    margin: 0px;
+}
+
+.bigGap {
+    gap: 20px;
+}
+
+.absoluteCenter {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%);
+}
+
+.paddingSides {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.paddingTop {
+    position: absolute;
+    top: 100%;
+    transform: translate(50%, 50%);
+}
+
+a {
+    color: #9090EE;
+    text-decoration: none;
 }

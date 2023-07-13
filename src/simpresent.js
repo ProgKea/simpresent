@@ -7,7 +7,7 @@ class SubSection extends HTMLElement {
 class Slide {
     constructor(element) {
         this.element = element;
-        this.currentSubslide = 0;
+        this.currentSubslide = -1;
         this.subslides = [];
     }
 
@@ -76,26 +76,28 @@ class Simpresent {
     }
 
     prevSubslide() {
-        if (this.currentSlide().subslide() === undefined) {
+		if (this.currentSlide().subslide() === undefined) {
             return;
-        }
-
-        this.currentSlide().subslide().style.display = "none";
-        this.currentSlide().currentSubslide = Math.max(0, this.currentSlide().currentSubslide-1);
+		}
+		this.currentSlide().subslide().style.display = "none";
+        this.currentSlide().currentSubslide = Math.max(-1, this.currentSlide().currentSubslide-1);
     }
 
     nextSubslide() {
-        if (this.currentSlide().subslide() === undefined) {
-            return;
-        }
-
-        this.currentSlide().subslide().style.display = "block";
         this.currentSlide().currentSubslide =
             Math.min(this.currentSlide().subslides.length-1,
                      this.currentSlide().currentSubslide+1);
+					 
+		if (this.currentSlide().subslide() === undefined) {
+            return;
+        }
+		
+        this.currentSlide().subslide().style.display = "block";
     }
 
     update() {
+		this.logNote();
+		this.currentSlide().updateSubslides();
         this.overlay.className = `index${this.idx}`;
         if (this.indexElement !== null) {
             this.indexElement.textContent = `${this.idx}`;
@@ -103,18 +105,16 @@ class Simpresent {
     }
 
     logNote() {
-        let note = undefined;
         if (this.currentNote() === undefined) {
             const noteElement = this.currentSlide().element.querySelector(".note");
             if (noteElement === null) {
                 return;
-            }
-            note = noteElement.textContent;
-            this.notes[this.idx] = note;
+            }            
+            this.notes[this.idx] = noteElement.textContent;
         }
 
-        if (note !== undefined) {
-            console.log(note);
+        if (this.currentNote() !== undefined) {
+            console.log(this.currentNote());
         }
     }
 }
@@ -129,6 +129,7 @@ function sections2Slides(sections) {
 
 window.onload = () => {
     const simpresent = new Simpresent();
+	
     document.addEventListener("keydown", (e) => {
         switch (e.key) {
         case "ArrowLeft":
@@ -140,11 +141,13 @@ window.onload = () => {
             simpresent.nextSubslide();
             break;
         case "PageUp":
+		case "ArrowUp":
         case "k":
             e.preventDefault();
             simpresent.prevSlide();
             break;
         case "PageDown":
+		case "ArrowDown":
         case "j":
             e.preventDefault();
             simpresent.nextSlide();
@@ -166,10 +169,8 @@ window.onload = () => {
             break;
         }
 
-        simpresent.currentSlide().updateSubslides();
         simpresent.update()
     });
 }
 
 // TODO: Find another way to show the notes. One option would be to create a api that accepts the notes and shows them
-// TODO: fix the bug that you have to press twice to switch direction, when switching subsections
