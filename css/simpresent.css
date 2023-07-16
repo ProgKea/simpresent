@@ -14,13 +14,13 @@ body::-webkit-scrollbar{
     display: none;
 }
 
-#defaultOverlay,#overlay {
+#overlay {
     position: absolute;
-    width: 100%;
+    width: 100vw;
     z-index: -1;
     height: 100vh;
 }
 
-#defaultOverlay,#overlay > * {
+#overlay > * {
     position: absolute;
 }

@@ -33,14 +33,19 @@ class Simpresent {
 
         for (let i = 0; i < sections.length; ++i) {
             sections[i].id = "slide" + i;
+            if (i > 0) {
+                sections[i].style.display = "none";
+            }
         }
         this.slides = sections2Slides(sections);
 
         customElements.define("sub-section", SubSection);
 
-        this.indexElement = document.getElementById("index");
         this.overlay = document.getElementById("overlay");
-        this.overlay.className = "index0";
+        if (this.overlay !== null) {
+            this.overlay.className = "index0";
+        }
+        this.indexElement = document.getElementById("index");
         if (this.indexElement !== null) {
             this.indexElement.textContent = "0";
         }
@@ -76,10 +81,10 @@ class Simpresent {
     }
 
     prevSubslide() {
-		if (this.currentSlide().subslide() === undefined) {
+        if (this.currentSlide().subslide() === undefined) {
             return;
-		}
-		this.currentSlide().subslide().style.display = "none";
+        }
+        this.currentSlide().subslide().style.display = "none";
         this.currentSlide().currentSubslide = Math.max(-1, this.currentSlide().currentSubslide-1);
     }
 
@@ -87,18 +92,20 @@ class Simpresent {
         this.currentSlide().currentSubslide =
             Math.min(this.currentSlide().subslides.length-1,
                      this.currentSlide().currentSubslide+1);
-					 
-		if (this.currentSlide().subslide() === undefined) {
+
+        if (this.currentSlide().subslide() === undefined) {
             return;
         }
-		
+
         this.currentSlide().subslide().style.display = "block";
     }
 
     update() {
-		this.logNote();
-		this.currentSlide().updateSubslides();
-        this.overlay.className = `index${this.idx}`;
+        this.logNote();
+        this.currentSlide().updateSubslides();
+        if (this.overlay !== null) {
+            this.overlay.className = `index${this.idx}`;
+        }
         if (this.indexElement !== null) {
             this.indexElement.textContent = `${this.idx}`;
         }
@@ -109,7 +116,7 @@ class Simpresent {
             const noteElement = this.currentSlide().element.querySelector(".note");
             if (noteElement === null) {
                 return;
-            }            
+            }
             this.notes[this.idx] = noteElement.textContent;
         }
 
@@ -129,7 +136,7 @@ function sections2Slides(sections) {
 
 window.onload = () => {
     const simpresent = new Simpresent();
-	
+
     document.addEventListener("keydown", (e) => {
         switch (e.key) {
         case "ArrowLeft":
@@ -141,13 +148,13 @@ window.onload = () => {
             simpresent.nextSubslide();
             break;
         case "PageUp":
-		case "ArrowUp":
+        case "ArrowUp":
         case "k":
             e.preventDefault();
             simpresent.prevSlide();
             break;
         case "PageDown":
-		case "ArrowDown":
+        case "ArrowDown":
         case "j":
             e.preventDefault();
             simpresent.nextSlide();

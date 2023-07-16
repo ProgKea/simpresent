@@ -3,3 +3,118 @@
 simpresent is a really simple presentation framework that enables you to create your presentation using html, css, js.
 
 You can find a example presentation here: https://progkea.github.io/simpresent/.
+
+* Getting started
+
+To get started download the [[file:../src/simpresent.js][simpresent.js]] file and the [[file:../css/simpresent.css][simpresent.css]] file.
+
+After downloading the files create a html file and import the file like so:
+
+#+BEGIN_SRC html
+<link rel="stylesheet" href="path/to/file/simpresent.css"/>
+<script src="path/to/file/simpresent.js"></script>
+#+END_SRC
+
+So your file should look something like this:
+
+#+BEGIN_SRC html
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My Presentation</title>
+    <link rel="stylesheet" href="css/simpresent.css"/>
+  </head>
+  <body>
+    <script src="src/simpresent.js"></script>
+  </body>
+</html>
+#+END_SRC
+
+To add a slide to the presentation you create a =<section>=.
+
+#+BEGIN_SRC html
+<section>
+    <h1>This is my presentation</h1>
+</section>
+#+END_SRC
+
+** Styling
+
+I recommend using [[https://meyerweb.com/eric/tools/css/reset/][reset.css]] for easier styling.
+
+Every section has an =id= assigned to it that you can use to change the style of specific slides.
+
+The =id='s are named like this: slide/i/ where /i/ is the number of the current slide started with 0.
+
+So you could change the background color of the content of the first slide like this:
+
+#+BEGIN_SRC css
+#slide0 {
+    background-color: black;
+}
+#+END_SRC
+
+To get the current slide number create a tag with the =id= =index=.
+
+#+BEGIN_SRC html
+<div id="index"></div>
+#+END_SRC
+
+You can then create a /overlay/ that will be automatically put in every slide.
+
+#+BEGIN_SRC html
+<div id="overlay">
+    <div id="index"></div>
+</div>
+#+END_SRC
+
+Keep in mind that by default the z-index of /overlays/ are -1.
+
+There are two kinds of overlays:
+1. =overlay= to style slides specifically
+2. =defaultOverlay= same style for all slides
+
+So if we wanted to not only change the background of the content in the first slide but also the entire background, we could use a overlay like this.
+
+#+BEGIN_SRC css
+.index0 {
+    background-color: red;
+}
+
+#slide0 {
+    background-color: red;
+}
+#+END_SRC
+
+The /overlay/ only has a red background color on the first slide. That is what the =.index0= does.
+If we would have used =defaultOverlay= the background color of the /overlay/ would never be red.
+
+** Keybindings
+
++----------------+----------+
+|Action          |Key       |
++----------------+----------+
+|Next            |j, Arrow  |
+|Slide           |Down,     |
+|                |Page Down |
++----------------+----------+
+|Previous        |k, Arrow  |
+|Slide           |Up, Page  |
+|                |Up        |
++----------------+----------+
+|Next            |l, Arrow  |
+|Subslide        |Right     |
+|                |          |
++----------------+----------+
+|Previous        |h, Arrow  |
+|Subslide        |Left      |
+|                |          |
++----------------+----------+
+|Go to first     |Home, u, g|
+|Slide           |          |
+|                |          |
++----------------+----------+
+|Go to last Slide|End, d, G |
+|                |          |
+|                |          |
++----------------+----------+
