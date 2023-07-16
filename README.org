@@ -6,7 +6,7 @@ You can find a example presentation here: https://progkea.github.io/simpresent/.
 
 * Getting started
 
-To get started download the [[file:../src/simpresent.js][simpresent.js]] file and the [[file:../css/simpresent.css][simpresent.css]] file.
+To get started download the [[file:./src/simpresent.js][simpresent.js]] file and the [[file:./css/simpresent.css][simpresent.css]] file.
 
 After downloading the files create a html file and import the file like so:
 
