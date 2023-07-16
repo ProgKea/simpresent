@@ -99,3 +99,16 @@ If we would have used =defaultOverlay= the background color of the /overlay/ wou
 |Previous Subslide |h, Arrow Left |
 |Go to first Slide |Home, u, g|
 |Go to last Slide|End, d, G |
+
+** Notes
+
+To create notes for a slide create a tag with the /note/ class inside a =section= like this:
+
+#+BEGIN_SRC html
+<section>
+  <div class="note">This will be printed to the console.</div>
+</section>
+#+END_SRC
+
+This note will be printed to the console, when the slide is reached.
+You could pop out your console to a separate window and put it to another monitor to read your notes.
