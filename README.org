@@ -91,30 +91,23 @@ If we would have used =defaultOverlay= the background color of the /overlay/ wou
 
 ** Keybindings
 
-+----------------+----------+
 |Action          |Key       |
-+----------------+----------+
+|---+---|
 |Next            |j, Arrow  |
 |Slide           |Down,     |
 |                |Page Down |
-+----------------+----------+
 |Previous        |k, Arrow  |
 |Slide           |Up, Page  |
 |                |Up        |
-+----------------+----------+
 |Next            |l, Arrow  |
 |Subslide        |Right     |
 |                |          |
-+----------------+----------+
 |Previous        |h, Arrow  |
 |Subslide        |Left      |
 |                |          |
-+----------------+----------+
 |Go to first     |Home, u, g|
 |Slide           |          |
 |                |          |
-+----------------+----------+
 |Go to last Slide|End, d, G |
 |                |          |
 |                |          |
-+----------------+----------+
