@@ -115,3 +115,16 @@ a {
     color: #9090EE;
     text-decoration: none;
 }
+
+.animationDemo {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, 50%);
+}
+
+.animationDemo > * {
+    position: relative;
+}
