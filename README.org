@@ -92,6 +92,7 @@ If we would have used =defaultOverlay= the background color of the /overlay/ wou
 ** Keybindings
 
 | Action | Key |
+|---+---|
 |Next  Slide |j, Arrow Down, Page Down|
 |Previous Slide |k, Arrow Up, Page Up |
 |Next Subslide |l, Arrow Right |
